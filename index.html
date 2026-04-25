@@ -485,25 +485,16 @@
     position: relative;
     overflow: hidden;
   }
-  .hero::before {
-    content: '❝';
-    position: absolute;
-    top: -0.5rem;
-    left: 3rem;
-    font-size: 10rem;
-    color: rgba(184,151,90,0.08);
-    font-family: 'Cormorant Garamond', serif;
-    line-height: 1;
-    pointer-events: none;
-  }
+
   .hero-poem {
     flex: 1;
     min-width: 0;
     max-width: 420px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 3rem;
   }
   .hero-label {
     font-family: 'Josefin Sans', sans-serif;
@@ -512,6 +503,7 @@
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 0.8rem;
+    align-self: center;
   }
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
@@ -521,6 +513,8 @@
     margin-bottom: 1.5rem;
     font-style: italic;
     line-height: 1.2;
+    align-self: center;
+    text-align: center;
   }
   .hero-body {
     font-family: 'Cormorant Garamond', serif;
@@ -531,7 +525,7 @@
     white-space: pre-wrap;
     max-height: 14rem;
     text-align: left;
-    align-self: flex-end;
+    width: 100%;
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
@@ -539,6 +533,7 @@
   .hero-read-btn {
     display: inline-block;
     margin-top: 1.2rem;
+    align-self: center;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 0.65rem;
     letter-spacing: 0.2em;
@@ -568,6 +563,7 @@
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    padding-right: 3rem;
   }
   .hero-bio-title {
     font-family: 'Josefin Sans', sans-serif;
@@ -593,7 +589,7 @@
   }
 
   .hero-pebbles {
-    width: 200px;
+    width: 230px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -690,7 +686,7 @@
   </div>
   <div class="hero-divider"></div>
   <div class="hero-pebbles">
-    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:180px;height:180px;border-radius:50%;border:1px solid rgba(184,151,90,0.3);">
+    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:210px;height:210px;border-radius:50%;border:1px solid rgba(184,151,90,0.3);">
   <defs>
     <radialGradient id="pg1" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#2a3f5f"/>
