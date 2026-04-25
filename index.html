@@ -893,7 +893,7 @@
 </div>
 
 <!-- Toast notification -->
-<div class="toast" id="toast">Link copied to clipboard</div>
+<div class="toast" id="toast">Link copied — paste it in a text or email!</div>
 
 <!-- Mobile drawer (poem list) -->
 <div class="drawer-overlay" id="drawer-overlay"></div>
@@ -1253,7 +1253,10 @@ function showPoem(idx) {
   viewer.innerHTML = `<div class="poem-inner">
     <div class="poem-header">
       <div class="poem-number">Poem ${idx + 1} of ${filtered.length}</div>
-      <div class="poem-title">${p.title}</div>
+      <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+        <div class="poem-title" style="flex:1;min-width:0;">${p.title}</div>
+        <button class="share-btn" onclick="sharePoem()" aria-label="Copy link to this poem" title="Copy link to share this poem">&#128279; Share</button>
+      </div>
       <div class="poem-date">${formatDate(p.date)}</div>
     </div>
     <div class="poem-body">${stanzaHtml}</div>
@@ -1261,7 +1264,6 @@ function showPoem(idx) {
     <div class="poem-nav">
       <button class="nav-btn" onclick="showPoem(${idx - 1})" ${idx === 0 ? 'disabled' : ''}>&#8592; Previous</button>
       <button class="nav-btn" onclick="showPoem(${idx + 1})" ${idx === filtered.length - 1 ? 'disabled' : ''}>Next &#8594;</button>
-      <button class="share-btn" onclick="sharePoem()" aria-label="Copy link to this poem">&#128279; Share</button>
     </div>
   </div>`;
   viewer.scrollTop = 0;
@@ -1313,11 +1315,17 @@ document.getElementById('random-btn').addEventListener('click', () => {
 
 // ── SHARE / COPY LINK ──
 function sharePoem() {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    showToast('Link copied to clipboard');
-  }).catch(() => {
-    showToast('Copy: ' + window.location.href);
-  });
+  const url = window.location.href;
+  const title = filtered[currentIdx] ? filtered[currentIdx].title : 'A poem by Thayne Whipple';
+  if (navigator.share) {
+    navigator.share({ title: title + ' — WhippleRipple', url: url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('Link copied — paste it in a text or email!');
+    }).catch(() => {
+      showToast('Copy this link: ' + url);
+    });
+  }
 }
 
 function showToast(msg) {
