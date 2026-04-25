@@ -524,54 +524,81 @@
     letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
     align-self: center;
+    opacity: 0.8;
   }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-    font-weight: 300;
-    color: var(--paper);
-    margin-bottom: 1.5rem;
-    font-style: italic;
-    line-height: 1.2;
-    align-self: center;
+
+  /* QUOTE PANELS */
+  .quote-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 2rem 4%;
+    position: relative;
+    min-height: 200px;
   }
-  .hero-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    line-height: 1.95;
-    color: rgba(245,240,232,0.82);
-    font-weight: 300;
-    white-space: pre-wrap;
-    max-height: 14rem;
-    text-align: left;
+  .quote-wrap {
+    position: relative;
     width: 100%;
-    align-self: center;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
-  .hero-read-btn {
-    display: inline-block;
-    margin-top: 1.2rem;
-    align-self: center;
+  .quote-slide {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    pointer-events: none;
+  }
+  .quote-slide.active {
+    opacity: 1;
+    position: relative;
+    pointer-events: auto;
+  }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    line-height: 0.6;
+    color: rgba(184,151,90,0.35);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.82);
+    margin-bottom: 0.9rem;
+  }
+  .quote-attr {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: rgba(184,151,90,0.65);
     cursor: pointer;
-    background: none;
-    border: 1px solid rgba(184,151,90,0.4);
-    padding: 0.4rem 1rem;
-    transition: all 0.2s;
+    transition: color 0.2s;
   }
-  .hero-read-btn:hover {
-    background: rgba(184,151,90,0.1);
-    border-color: var(--gold);
+  .quote-attr:hover { color: var(--gold); }
+  .quote-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 1.4rem;
   }
+  .quote-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(184,151,90,0.25);
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .quote-dot.active { background: var(--gold); }
   .hero-divider {
     width: 1px;
     background: rgba(184,151,90,0.2);
@@ -585,7 +612,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1rem 3rem;
+    padding: 2rem 4%;
   }
   .hero-bio-title {
     font-family: 'Josefin Sans', sans-serif;
@@ -780,14 +807,36 @@
   <div class="poem-count" id="total-count">291 poems</div>
 </header>
 
+<div class="controls">
+  <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Browse poems">☰ Poems</button>
+  <div class="search-wrap">
+    <span class="search-icon">&#9998;</span>
+    <input type="text" id="search" placeholder="Search poems..." autocomplete="off" aria-label="Search poems">
+  </div>
+  <select id="sort">
+    <option value="date-asc">Oldest first</option>
+    <option value="date-desc">Newest first</option>
+    <option value="alpha">A – Z</option>
+  </select>
+  <select id="filter">
+    <option value="all">All poems</option>
+    <option value="aesop">Aesop Ballads</option>
+    <option value="other">Original poems</option>
+  </select>
+  <button class="random-btn" id="random-btn">✦ Random</button>
+  <span class="results-info" id="results-info"></span>
+</div>
+
 <div class="hero" id="hero-section">
   <div class="hero-inner">
-  <div class="hero-poem">
-    <div class="hero-label">✦ Poem of the Day</div>
-    <div class="hero-title" id="hero-title"></div>
-    <div class="hero-body" id="hero-body"></div>
-    <button class="hero-read-btn" id="hero-read-btn" onclick="readHeroPoem()">Read Full Poem ›</button>
+
+  <!-- Left quote panel -->
+  <div class="quote-panel" id="quote-left">
+    <div class="hero-label">✦ From the Collection</div>
+    <div class="quote-wrap" id="quote-left-wrap"></div>
+    <div class="quote-dots" id="quote-left-dots"></div>
   </div>
+
   <div class="hero-divider"></div>
   <div class="hero-pebbles">
     <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:210px;height:210px;border-radius:50%;border:1px solid rgba(184,151,90,0.3);">
@@ -826,26 +875,6 @@
     <div class="hero-bio-text">A poet, storyteller, and author who divides his time between Ojai, California and Laʻie, Hawaiʻi. His writing spans the lyrical and the playful — from sea-washed sonnets and sacred ballads to wry observations on modern life. With six published collections, his work has delighted readers across generations.</div>
   </div>
   </div>
-</div>
-
-<div class="controls">
-  <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Browse poems">☰ Poems</button>
-  <div class="search-wrap">
-    <span class="search-icon">&#9998;</span>
-    <input type="text" id="search" placeholder="Search poems..." autocomplete="off" aria-label="Search poems">
-  </div>
-  <select id="sort">
-    <option value="date-asc">Oldest first</option>
-    <option value="date-desc">Newest first</option>
-    <option value="alpha">A – Z</option>
-  </select>
-  <select id="filter">
-    <option value="all">All poems</option>
-    <option value="aesop">Aesop Ballads</option>
-    <option value="other">Original poems</option>
-  </select>
-  <button class="random-btn" id="random-btn">✦ Random</button>
-  <span class="results-info" id="results-info"></span>
 </div>
 
 <div class="main">
@@ -1316,23 +1345,65 @@ document.getElementById('drawer-overlay').addEventListener('click', closeDrawer)
 
 
 // POEM OF THE DAY
-function renderHero() {
-  const today = new Date();
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-  const heroPoem = POEMS[dayOfYear % POEMS.length];
-  document.getElementById('hero-title').textContent = heroPoem.title;
-  document.getElementById('hero-body').textContent = heroPoem.content.substring(0, 500);
-  document.getElementById('hero-read-btn').dataset.idx = POEMS.indexOf(heroPoem);
+// ── ROTATING QUOTE PANELS ──
+// Pick a curated set of memorable lines from the poems
+function getQuotes() {
+  // Sample up to 8 random poems, extract a short excerpt from each
+  const pool = [...POEMS].sort(() => Math.random() - 0.5).slice(0, 20);
+  return pool.map(p => {
+    const content = p.content.replace(/\\n/g, '\n');
+    // Get first 2-3 lines
+    const lines = content.split('\n').filter(l => l.trim()).slice(0, 3);
+    return { text: lines.join('\n'), title: p.title, idx: POEMS.indexOf(p) };
+  }).filter(q => q.text.length > 20 && q.text.length < 220);
 }
 
-function readHeroPoem() {
-  const idx = parseInt(document.getElementById('hero-read-btn').dataset.idx);
+function buildQuotePanel(wrapperId, dotsId, quotes) {
+  const wrap = document.getElementById(wrapperId);
+  const dotsEl = document.getElementById(dotsId);
+  if (!wrap || !dotsEl) return;
+
+  wrap.innerHTML = quotes.map((q, i) => `
+    <div class="quote-slide${i === 0 ? ' active' : ''}" data-idx="${q.idx}">
+      <span class="quote-mark">&ldquo;</span>
+      <div class="quote-text">${q.text.replace(/\n/g, '<br>')}</div>
+      <div class="quote-attr" onclick="goToQuotePoem(${q.idx})">— ${q.title} &rsaquo;</div>
+    </div>`).join('');
+
+  dotsEl.innerHTML = quotes.map((_, i) =>
+    `<div class="quote-dot${i === 0 ? ' active' : ''}" onclick="jumpQuote('${wrapperId}','${dotsId}',${i})"></div>`
+  ).join('');
+
+  // auto-rotate
+  let current = 0;
+  return setInterval(() => {
+    current = (current + 1) % quotes.length;
+    setQuote(wrapperId, dotsId, current);
+  }, 5000);
+}
+
+function setQuote(wrapperId, dotsId, idx) {
+  const slides = document.querySelectorAll(`#${wrapperId} .quote-slide`);
+  const dots   = document.querySelectorAll(`#${dotsId} .quote-dot`);
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+function jumpQuote(wrapperId, dotsId, idx) {
+  setQuote(wrapperId, dotsId, idx);
+}
+
+function goToQuotePoem(idx) {
   filtered = [...POEMS];
   applyFilters();
   showPoem(idx);
-  setTimeout(() => {
-    document.querySelector('.main').scrollIntoView({ behavior: 'smooth' });
-  }, 100);
+  setTimeout(() => document.querySelector('.main').scrollIntoView({ behavior: 'smooth' }), 100);
+}
+
+function renderHero() {
+  const quotes = getQuotes();
+  // Split into left panel (first half) — bio is on the right, no right panel needed
+  buildQuotePanel('quote-left-wrap', 'quote-left-dots', quotes.slice(0, 6));
 }
 
 // BOOKS
