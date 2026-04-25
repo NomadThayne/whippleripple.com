@@ -191,7 +191,7 @@
     overflow-y: auto;
     height: calc(100vh - 160px);
     position: sticky;
-    top: 57px;
+    top: 54px;
     background: var(--paper);
   }
   .poem-list-item {
@@ -393,7 +393,7 @@
     overflow-y: auto;
     height: calc(100vh - 160px);
     position: sticky;
-    top: 57px;
+    top: 54px;
     background: var(--paper);
   }
   .info-sidebar-title {
@@ -495,20 +495,18 @@
   .hero {
     background: linear-gradient(135deg, #111820 0%, #1a2332 50%, #0d1117 100%);
     border-bottom: 1px solid var(--line);
-    padding: 2.5rem 4rem;
+    padding: 2.5rem 5%;
     display: flex;
-    gap: 3rem;
-    align-items: center;
-    justify-content: center;
+    gap: 0;
+    align-items: stretch;
     position: relative;
     overflow: hidden;
   }
   .hero-inner {
     display: flex;
-    gap: 3rem;
+    gap: 0;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
   }
 
   .hero-poem {
@@ -518,6 +516,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 1rem 3rem;
   }
   .hero-label {
     font-family: 'Josefin Sans', sans-serif;
@@ -586,6 +585,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 1rem 3rem;
   }
   .hero-bio-title {
     font-family: 'Josefin Sans', sans-serif;
@@ -780,26 +780,6 @@
   <div class="poem-count" id="total-count">291 poems</div>
 </header>
 
-<div class="controls">
-  <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Browse poems">☰ Poems</button>
-  <div class="search-wrap">
-    <span class="search-icon">&#9998;</span>
-    <input type="text" id="search" placeholder="Search poems..." autocomplete="off" aria-label="Search poems">
-  </div>
-  <select id="sort">
-    <option value="date-asc">Oldest first</option>
-    <option value="date-desc">Newest first</option>
-    <option value="alpha">A – Z</option>
-  </select>
-  <select id="filter">
-    <option value="all">All poems</option>
-    <option value="aesop">Aesop Ballads</option>
-    <option value="other">Original poems</option>
-  </select>
-  <button class="random-btn" id="random-btn">✦ Random</button>
-  <span class="results-info" id="results-info"></span>
-</div>
-
 <div class="hero" id="hero-section">
   <div class="hero-inner">
   <div class="hero-poem">
@@ -846,6 +826,26 @@
     <div class="hero-bio-text">A poet, storyteller, and author who divides his time between Ojai, California and Laʻie, Hawaiʻi. His writing spans the lyrical and the playful — from sea-washed sonnets and sacred ballads to wry observations on modern life. With six published collections, his work has delighted readers across generations.</div>
   </div>
   </div>
+</div>
+
+<div class="controls">
+  <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Browse poems">☰ Poems</button>
+  <div class="search-wrap">
+    <span class="search-icon">&#9998;</span>
+    <input type="text" id="search" placeholder="Search poems..." autocomplete="off" aria-label="Search poems">
+  </div>
+  <select id="sort">
+    <option value="date-asc">Oldest first</option>
+    <option value="date-desc">Newest first</option>
+    <option value="alpha">A – Z</option>
+  </select>
+  <select id="filter">
+    <option value="all">All poems</option>
+    <option value="aesop">Aesop Ballads</option>
+    <option value="other">Original poems</option>
+  </select>
+  <button class="random-btn" id="random-btn">✦ Random</button>
+  <span class="results-info" id="results-info"></span>
 </div>
 
 <div class="main">
