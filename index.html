@@ -499,8 +499,16 @@
     display: flex;
     gap: 3rem;
     align-items: center;
+    justify-content: center;
     position: relative;
     overflow: hidden;
+  }
+  .hero-inner {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
   }
 
   .hero-poem {
@@ -574,7 +582,6 @@
   .hero-bio {
     flex: 1;
     min-width: 0;
-    max-width: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -630,7 +637,8 @@
   }
 
   @media (max-width: 900px) {
-    .hero { flex-direction: column; padding: 2rem; gap: 2rem; }
+    .hero { padding: 2rem; }
+    .hero-inner { flex-direction: column; gap: 2rem; }
     .hero-divider { display: none; }
     .hero-bio { width: 100%; }
   }
@@ -793,6 +801,7 @@
 </div>
 
 <div class="hero" id="hero-section">
+  <div class="hero-inner">
   <div class="hero-poem">
     <div class="hero-label">✦ Poem of the Day</div>
     <div class="hero-title" id="hero-title"></div>
@@ -835,6 +844,7 @@
       <div class="hero-bio-name" style="margin-bottom:0;">Thayne Whipple</div>
     </div>
     <div class="hero-bio-text">A poet, storyteller, and author who divides his time between Ojai, California and Laʻie, Hawaiʻi. His writing spans the lyrical and the playful — from sea-washed sonnets and sacred ballads to wry observations on modern life. With six published collections, his work has delighted readers across generations.</div>
+  </div>
   </div>
 </div>
 
