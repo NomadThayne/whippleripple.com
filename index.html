@@ -167,7 +167,7 @@
 
   /* SIDEBAR */
   .sidebar {
-    width: 300px;
+    width: 340px;
     flex-shrink: 0;
     border-right: 1px solid var(--line);
     overflow-y: auto;
@@ -356,7 +356,7 @@
 
   /* AD SIDEBAR */
   .ad-sidebar {
-    width: 220px;
+    width: 260px;
     flex-shrink: 0;
     border-left: 1px solid var(--line);
     padding: 1.5rem 1rem;
@@ -390,8 +390,8 @@
   }
   .book-cover {
     width: 100%;
-    max-width: 140px;
-    height: 180px;
+    max-width: 180px;
+    height: 230px;
     object-fit: cover;
     border: 1px solid var(--line);
     display: block;
@@ -437,6 +437,118 @@
     transition: opacity 0.2s;
   }
   .book-btn:hover { opacity: 0.85; }
+
+  /* POEM OF THE DAY */
+  .hero {
+    background: linear-gradient(135deg, #111820 0%, #1a2332 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--line);
+    padding: 3rem 6rem;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '❝';
+    position: absolute;
+    top: -0.5rem;
+    left: 3rem;
+    font-size: 10rem;
+    color: rgba(184,151,90,0.08);
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .hero-poem {
+    flex: 1;
+    min-width: 0;
+  }
+  .hero-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    font-weight: 300;
+    color: var(--paper);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  .hero-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.95;
+    color: rgba(245,240,232,0.82);
+    font-weight: 300;
+    white-space: pre-wrap;
+    max-height: 12rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .hero-read-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    background: none;
+    border: 1px solid rgba(184,151,90,0.4);
+    padding: 0.4rem 1rem;
+    transition: all 0.2s;
+  }
+  .hero-read-btn:hover {
+    background: rgba(184,151,90,0.1);
+    border-color: var(--gold);
+  }
+  .hero-divider {
+    width: 1px;
+    background: rgba(184,151,90,0.2);
+    align-self: stretch;
+    flex-shrink: 0;
+  }
+  .hero-bio {
+    width: 280px;
+    flex-shrink: 0;
+  }
+  .hero-bio-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .hero-bio-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--paper);
+    margin-bottom: 0.8rem;
+  }
+  .hero-bio-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.72);
+    font-weight: 300;
+  }
+  @media (max-width: 900px) {
+    .hero { flex-direction: column; padding: 2rem; gap: 2rem; }
+    .hero-divider { display: none; }
+    .hero-bio { width: 100%; }
+  }
+
   @media (max-width: 1100px) { .ad-sidebar { display: none; } }
 
   @media (max-width: 700px) {
@@ -492,6 +604,21 @@
   </select>
   <button class="random-btn" id="random-btn">✦ Random</button>
   <span class="results-info" id="results-info"></span>
+</div>
+
+<div class="hero" id="hero-section">
+  <div class="hero-poem">
+    <div class="hero-label">✦ Poem of the Day</div>
+    <div class="hero-title" id="hero-title"></div>
+    <div class="hero-body" id="hero-body"></div>
+    <button class="hero-read-btn" id="hero-read-btn" onclick="readHeroPoem()">Read Full Poem ›</button>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-bio">
+    <div class="hero-bio-title">About the Author</div>
+    <div class="hero-bio-name">Thayne Whipple</div>
+    <div class="hero-bio-text">Thayne Whipple is a poet, storyteller, and author who divides his time between Ojai, California and Laʻie, Hawaii. His writing spans the lyrical and the playful — from sea-washed sonnets and sacred ballads to wry observations on modern life. With six published collections, his work has delighted readers across generations. WhippleRipple gathers his complete body of poetry in one place, free to read and enjoy.</div>
+  </div>
 </div>
 
 <div class="main">
@@ -904,6 +1031,27 @@ document.getElementById('random-btn').addEventListener('click', () => {
   if (filtered.length) showPoem(Math.floor(Math.random() * filtered.length));
 });
 
+
+
+// POEM OF THE DAY
+function renderHero() {
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+  const heroPoem = POEMS[dayOfYear % POEMS.length];
+  document.getElementById('hero-title').textContent = heroPoem.title;
+  const content = heroPoem.content.replace(/\\n/g, '\n');
+  document.getElementById('hero-body').textContent = content.substring(0, 400);
+  document.getElementById('hero-read-btn').dataset.idx = POEMS.indexOf(heroPoem);
+}
+
+function readHeroPoem() {
+  const idx = parseInt(document.getElementById('hero-read-btn').dataset.idx);
+  // find in filtered list or reset
+  filtered = [...POEMS];
+  renderList();
+  showPoem(idx);
+  document.getElementById('viewer').scrollIntoView({ behavior: 'smooth' });
+}
 
 // BOOKS
 const BOOKS = [
