@@ -103,6 +103,14 @@ POEM_PAGE = """<!DOCTYPE html>
 <meta property="og:description" content="{excerpt}">
 <meta property="og:site_name" content="WhippleRipple">
 <link rel="canonical" href="{url}">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGFQ2TFBLJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-RGFQ2TFBLJ');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
